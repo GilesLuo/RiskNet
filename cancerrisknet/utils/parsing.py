@@ -16,9 +16,9 @@ POSS_VAL_NOT_LIST = 'Flag {} has an invalid list of values: {}. Length of slist 
 def parse_args(args_str=None):
     parser = argparse.ArgumentParser(description='CancerRiskNet Classifier')
     # What main steps to execute
-    parser.add_argument('--train', action='store_true', default=False, help='Whether or not to train model')
-    parser.add_argument('--test', action='store_true', default=False, help='Whether or not to run model on test set')
-    parser.add_argument('--dev', action='store_true', default=False, help='Whether or not to run model on dev set')
+    parser.add_argument('--train', action='store_true', default=True, help='Whether or not to train model')
+    parser.add_argument('--test', action='store_true', default=True, help='Whether or not to run model on test set')
+    parser.add_argument('--dev', action='store_true', default=True, help='Whether or not to run model on dev set')
     parser.add_argument('--attribute', action='store_true', default=False,
                         help='Whether or not to run attribution analysis (interpretation). '
                              'Attribution is performed on test set')
@@ -31,8 +31,8 @@ def parse_args(args_str=None):
     # Dataset setup
     parser.add_argument('--dataset', type=str, default='disease_progression',
                         help="Name of dataset to use. Default: 'disease_preogression")
-    parser.add_argument('--metadata_path', type=str, default='data/metadata.json', help="Path of json source datafile")
-    parser.add_argument('--data_setting_path', type=str, default='data/settings.yaml',
+    parser.add_argument('--metadata_path', type=str, default='../data/sample_diag_data.json', help="Path of json source datafile")
+    parser.add_argument('--data_setting_path', type=str, default='../data/settings_sample_data.yaml',
                         help="Path of yaml with data specific settings")
     parser.add_argument('--month_endpoints', nargs='+', default=[3, 6, 12, 36, 60, 120],
                         help="List of month endpoints at which to generate risk prediction.")
@@ -57,7 +57,7 @@ def parse_args(args_str=None):
                         help="Max number of trajectories to include for each patient during dev and test. ")
 
     # Hyper-params for model training
-    parser.add_argument('--model_name', type=str, default='transformer', help="Model to be used.")
+    parser.add_argument('--model_name', type=str, default='gru', help="Model to be used.")
     parser.add_argument('--num_layers', type=int, default=1, help="Number of layers to use for sequential NNs.")
     parser.add_argument('--num_heads', type=int, default=None,
                         help="Number of heads to use for multihead attention. Only relevant for transformer.")
@@ -103,13 +103,13 @@ def parse_args(args_str=None):
     parser.add_argument('--epochs', type=int, default=20, help='Total number of epochs for training [default: 20].')
 
     # evaluation
-    parser.add_argument('--eval_auroc', action='store_true', default=False, help='Whether to calculate AUROC')
-    parser.add_argument('--eval_auprc', action='store_true', default=False, help='Whether to calculate AUPRC')
-    parser.add_argument('--eval_mcc', action='store_true', default=False, help='Whether to calculate MCC')
-    parser.add_argument('--eval_c_index', action='store_true', default=False, help='Whether to calculate c-Index')
+    parser.add_argument('--eval_auroc', action='store_true', default=True, help='Whether to calculate AUROC')
+    parser.add_argument('--eval_auprc', action='store_true', default=True, help='Whether to calculate AUPRC')
+    parser.add_argument('--eval_mcc', action='store_true', default=True, help='Whether to calculate MCC')
+    parser.add_argument('--eval_c_index', action='store_true', default=True, help='Whether to calculate c-Index')
 
     # Where to store stuff
-    parser.add_argument('--save_dir', type=str, required=True, help='The output file location.')
+    parser.add_argument('--save_dir', type=str, default="tmp-result", help='The output file location.')
     parser.add_argument('--model_dir', type=str, default="snapshots", help='The path to the library of trained models.')
     parser.add_argument('--exp_id', type=str, default='debug', help='The identifier/name for each run')
     parser.add_argument('--time_logger_verbose', type=int, default=2,

@@ -20,11 +20,11 @@ PANC_CANCER_CODE:
 END_OF_TIME_DATE : 
   - 2018-04-10
 ICD10_MAPPER_NAME:
-  - data/icd10_disease_descriptions.tsv
+  - ../data/icd10_disease_descriptions.tsv
 ICD8_MAPPER_NAME:
-  - data/icd8_disease_descriptions.tsv
+  - ../data/icd8_disease_descriptions.tsv
 ICD9_MAPPER_NAME:
-  - data/icd9_disease_descriptions.tsv
+  - ../data/icd9_disease_descriptions.tsv
 
 chapterColors:
         - [47, 207, 211]

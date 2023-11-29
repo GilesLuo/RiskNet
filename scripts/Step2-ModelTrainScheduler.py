@@ -27,7 +27,7 @@ SCHEDULER_REGISTRY = {}
 
 parser = argparse.ArgumentParser(description='CancerRiskNet Grid Search Scheduler.')
 parser.add_argument("--search_name", default="untitled-search", type=str, help="The name of the search.")
-parser.add_argument("--experiment_config_path", required=True, type=str, help="Path to the search config.")
+parser.add_argument("--experiment_config_path", type=str, default="../configs/sample_grid_search.json",help="Path to the search config.")
 parser.add_argument("--n_workers", type=int, default=1, help="How many worker nodes to schedule?")
 parser.add_argument('--save_dir', type=str, default="results",
                     help="The location to store logs and job level result files")
